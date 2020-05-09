@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+{% block content %}
+    <div class="container" id="shown_comments">
+
+      <div class="col-md-5">
+          <div class="content-section">
+              <div class="card">
+                <div class="card-header">
+                  <span>{{blog.title}}</span>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Thoughts on "{{blog.title}}" by {{blog.user.username}}</p>
+                  <p>{{blog.message}}</p>
+                </div>
+          </div>
+          </div>
+      </div>
+
+    <div class="col-md-7" id="reviews">
+      <div class="class=">
+        <h1>Reviews</h1>
+          <hr>
+
+          {% if comments %}
+              {{macro.displayComments(comments)}}
+              <a class="btn btn-warning btn-lg text-center" href="/blog/comment/new/{{blog.id}}"> Write a comment</a>
+          {% else%}
+              <h3 class="text-center">This blog has no comments </h3>
+              <a class="btn btn-warning btn-lg text-center" href="/blog/comment/new/{{blog.id}}"> Write a comment</a>
+          {% endif %}
+      </div>
+    </div>
+
+    </div>
+
+
+    </div>
+
+{% endblock %}

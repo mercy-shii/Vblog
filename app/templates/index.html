@@ -1,2 +1,60 @@
- 
-<h1>WOW YOU FINALLY MADE IT TO HAMISI'S FLASK BOILER PLATE CODE</h1>
+<body style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSwCEzaTXJXkGQtn9rBcvFnsaFHGNHxuoX5Kepa810PxKtgg0Wj&usqp=CAU');  background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+    {% extends 'base.html'%}
+    {% import 'macros.html' as macro%}
+    
+    <!-- Styles block -->
+    
+    {% block styles%}
+        {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    {% endblock %}
+    
+    {% block content %}
+    <div class="main">
+    <div class="container">
+      <div class="col-md-12">
+        <div class="card">
+        <div class="card-header">
+          Quote
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p id="quote">{{quote.quote}}</p>
+            <footer class="blockquote-footer"><cite title="Source Title">{{quote.author}}</cite></footer>
+          </blockquote>
+        </div><br>
+      </div><br>
+      </div>
+              {% if blogs %}
+                  {% for blog in blogs %}
+                  <div class="col-md-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                        {{blog.title}}
+                        </div>
+                        <div class="card-body">
+                        <p class="card-text">{{blog.message}}</p>
+                        <hr>
+                        <p class="card-text"> by: {{blog.user.username}}</p>
+                        {% if current_user.is_authenticated %}
+                          <a class="comment" href="{{url_for('main.comments',blog_id = blog.id)}}"> <button type="button" name="button" class="btn btn-warning">comment</button> </a>
+                        {% endif %}
+                        </div>
+                        <div class="card-footer text-muted">Posted on:
+                        {{blog.posted}}
+                        </div>
+                    </div><br>
+                  </div>  <br>
+    
+    
+    
+    
+              {% endfor %}
+              {% else %}
+              <h2>There are no Blogs</h2>
+              {% endif %}
+    
+    </div>
+    </div>
+    {% endblock %}
+    </body> 
