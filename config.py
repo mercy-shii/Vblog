@@ -1,6 +1,6 @@
 class Config:
     SECRET_KEY =('SECRET_KEY')
-
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mercy:shii@localhost/blog'
 class ProdConfig(Config):
     pass
 

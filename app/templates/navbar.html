@@ -14,12 +14,11 @@
                          <li><a class="navbar-brand" href="/" style="font-size: 20px;"> BLOG </a></li>
                          <ul class="nav navbar-nav navbar-left">
                             <li><a class="navbar-brand" href="/" style="font-size: 20px;"> BLOG </a></li>
-                             {% if is_authenticated %}
-                            <li><a  href="{{url_for('main.profile',username)}}">{{current_user.username}}</a></li>
+                            
                              <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
-                             {% else %}
+                             
                              <li style="position: 200px;"><a href="{{url_for('auth.login')}}">Sign in</a></li>
-                             {%endif%}
+                             
                        </ul>
                         
                           
