@@ -11,9 +11,7 @@
                 </div>
                 <div class="navbar-collapse collapse" style="font-size: 20px;">
                     <ul class="nav navbar-nav navbar-left">
-                         <li><a class="navbar-brand" href="/" style="font-size: 20px;"> BLOG </a></li>
-                         <ul class="nav navbar-nav navbar-left">
-                            <li><a class="navbar-brand" href="/" style="font-size: 20px;"> BLOG </a></li>
+                            <li><a class="navbar-brand" href="/" style="font-size: 20px;">SHII'S BLOG </a></li>
                             {% if current_user.is_authenticated %}
                             <li style="color: lightcyan;padding: 15px;">{{current_user.username}}</li>
                              <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>

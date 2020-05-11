@@ -8,7 +8,7 @@ from .forms import BlogForm,CommentForm,UpdateProfile
 @main.route('/')
 def index():
 
-    title = 'Home - Blog'
+    title = 'Developer Blog'
     quote = get_quote()
     
     return render_template('index.html', title=title,quote = quote)
@@ -35,16 +35,16 @@ def del_blog(uname,blog_id):
 
     return render_template("profile/profile.html",user = user,blogs = blogs) 
 
- @main.route('/user/<uname>/update',methods = ['GET','POST'])  
- @login_required
- def update_profile(uname):
+@main.route('/user/<uname>/update',methods = ['GET','POST'])  
+@login_required
+def update_profile(uname):
      user = User.query.filter_by(username = uname).first()
      if user is None:
          abort(404)
+         
+     form = UpdateProfile()
 
-      form = UpdateProfile()
-
-      if form.validate_on_submit():
+     if form.validate_on_submit():
           user.bio = form.bio.data
 
           db.session.add(user)
@@ -52,7 +52,7 @@ def del_blog(uname,blog_id):
 
           return redirect(url_for('.profile',uname = user.username))
 
-        return render_template('profile/update.html',form = form,user = user)
+     return render_template('profile/update.html',form = form,user = user)
 
 @main.route('/user/<uname>/blog',methods =['GET','POST'])
 @login_required

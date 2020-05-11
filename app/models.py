@@ -2,6 +2,7 @@ from .import db
 from . import login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -23,7 +24,7 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255), index = True)
     email = db.Column(db.String(255), unique = True, index = True)
-    password_hash = db.Column(db.String(255))
+    password_secure = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String(255))
     blogs = db.relationship("Blog", backref= "user", lazy="dynamic")
@@ -35,10 +36,10 @@ class User(UserMixin,db.Model):
 
     @password.setter
     def password(self,password):
-        self.password_hash = generate_password_hash(password)
+        self.password_secure = generate_password_hash(password)
 
     def verify_password(self,password):
-        return check_password_hash(self.password_hash,password)    
+        return check_password_hash(self.password_secure,password)    
 
 
     def __repr__(self):
@@ -52,14 +53,20 @@ class Blog(db.Model):
     title = db.Column(db.String(255))
     message = db.Column(db.String(255))
     user_id =db.Column(db.Integer,db.ForeignKey("users.id"))
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     comments = db.relationship("Comment",backref = "blog",lazy = "dynamic")
+
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
 
 
     def delete_blog(self):
         db.session.delete(self)
         db.session.commit()
 
-    def get_comments(self):
+    def get_blog(self,id):
         blog = Blog.query.filter_by(id = self.id).first()
         comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.posted.desc())
         return comments
