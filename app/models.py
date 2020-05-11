@@ -1,6 +1,12 @@
 from .import db
 from . import login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(init(user_id))
+
 class Quote:
     '''
     Quote class to hold random quote
@@ -11,13 +17,13 @@ class Quote:
         self.quote = quote
         self.permalink = permalink
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255), index = True)
     email = db.Column(db.String(255), unique = True, index = True)
-    pass_secure = db.Column(db.String(255))
+    password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String(255))
     blogs = db.relationship("Blog", backref= "user", lazy="dynamic")
@@ -76,7 +82,7 @@ class Comment(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-#class Subscriber(db,Model):
+class Subscriber(db.Model):
     __tablename__ = 'subscribers'
 
     id = db.Column(db.Integer,primary_key = True)
