@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" id="fun">
+    <div class="row">
+        <!-- displaying  Username-->
+        <div class="col-md-4 marg2">
+            <h3 class="text-center"> {{user.username| capitalize}} </h3>
+            <br>
+            <!--Displaying user bio-->
+            {% if user.bio %}
+            <p> {{user.bio}}</p>
+            {%else%}
+
+            <br>
+            <p> {{user.username| capitalize}} has no bio </p>
+
+
+            {% endif %}
+            <br>
+
+            {% if user == current_user %}
+            <a href="{{url_for('main.update_profile',uname=user.username)}}"> <button type="button" name="button"
+                    class="btn btn-warning"> Edit User Profile </button></a></a>
+            {% endif %}
+        </div>
+        <br>
+        <!--Display profile photo-->
+        <div class="col-md-5 marg3">
+
+            {% if user.profile_pic_path %}
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+            {%else%}
+            <p>No profile picture</p>
+            {% endif %}
+
+        </div>
+        <br>
+        <div class="col-md-3 marg">
+            <a href="{{url_for('main.new_blog',uname=user.username)}}"> <button type="button" name="button"
+                    class="btn btn-warning"> Add a New Blog</button></a>
+        </div>
+    </div>
+    <h3 class="text-center">Blogs</h3>
+
+    {% if blogs %}
+    <div class="row ">
+        {% for blog in blogs %}
+        <div class="col-md-3 card-group">
+            <h3 class="source-name">{{blog.title | upper}}</h3>
+            <div class="white">
+                <p>Posted by <strong> {{blog.user.username}}</strong></p>
+                <br>
+                <p>Date: <strong>{{blog.posted}}</strong></p>
+                <br>
+                <p>"{{blog.message}}"</p>
+                <br>
+                <a href="{{url_for('main.del_blog',uname=user.username, blog_id = blog.id)}}"><button type="button"
+                        name="button" class="btn btn-warning">Delete Blog Article</button></a>
+            </div>
+        </div>
+        {% endfor %}
+        <br>
+        {% else %}
+        <h2>You have no Blogs</h2>
+        {% endif %}
+    </div>
+
+
+
+</div>
+{% endblock %}
