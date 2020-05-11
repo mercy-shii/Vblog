@@ -19,10 +19,57 @@ class User(db.Model):
     password = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String(255))
-    #blogs = db.relationship("Blog", backref= "user", lazy="dynamic")
-    #comments = db.relationship("Comment", backref= "user", lazy="dynamic")
+    blogs = db.relationship("Blog", backref= "user", lazy="dynamic")
+    comments = db.relationship("Comment", backref= "user", lazy="dynamic")
 
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Blog(db.Model):
+    __tablename__='blogs'
+
+    id = db.Column(db.Integer,primary_key = True)
+    blog_pic_path = db.Column(db.String(255))
+    title = db.Column(db.String(255))
+    message = db.Column(db.String(255))
+    user_id =db.Column(db.Integer,db.ForeignKey("users.id"))
+    comments = db.relationship("Comment",backref = "blog",lazy = "dynamic")
+
+
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def get_comments(self):
+        blog = Blog.query.filter_by(id = self.id).first()
+        comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.posted.desc())
+        return comments
+
+class Comment(db.Model):
+    __tablename__ ='comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+    title = db.Column(db.String(255))
+    comment = db.Column(db.String(255))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blog_id = id).all()
+        return comments
+
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit()
+
+#class Subscriber(db,Model):
+    __tablename__ = 'subscribers'
+
+    id = db.Column(db.Integer,primary_key = True)
+    email = db.Column(db.String(255))
+    username = db.Column(db.String(255),index = True)
+
+
 
