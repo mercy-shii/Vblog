@@ -2,12 +2,12 @@
 {% import 'macros.html' as macro%}
 
 {% block content %}
-    <div class="container" id="shown_comments">
+    <div class="container" id="shown_comments" style="background-color: teal;">
 
       <div class="col-md-5">
-          <div class="content-section">
-              <div class="card">
-                <div class="card-header">
+          <div class="content-section" >
+              <div class="card" style="background-color: transparent;">
+                <div class="card-header" style="background-color: thistle;">
                   <span>{{blog.title}}</span>
                 </div>
                 <div class="card-body">
@@ -25,10 +25,10 @@
 
           {% if comments %}
               {{macro.displayComments(comments)}}
-              <a class="btn btn-warning btn-lg text-center" href="/blog/comment/new/{{blog.id}}"> Write a comment</a>
+              <a class="btn btn-success btn-lg text-center" href="/blog/comment/new/{{blog.id}}"> Write a comment</a>
           {% else%}
-              <h3 class="text-center">This blog has no comments </h3>
-              <a class="btn btn-warning btn-lg text-center" href="/blog/comment/new/{{blog.id}}"> Write a comment</a>
+              <h3 class="text-center" >This blog has no comments </h3>
+              <a class="btn btn-primary btn-lg text-center" href="/blog/comment/new/{{blog.id}}"> Write a comment</a>
           {% endif %}
       </div>
     </div>
