@@ -66,7 +66,7 @@ def new_blog(uname):
 
     if form.validate_on_submit():
         blog.title = form.title.data
-        blog.mesage = form.message.data
+        blog.message = form.message.data
         blog.user_id = current_user.id
 
         db.session.add(blog)
