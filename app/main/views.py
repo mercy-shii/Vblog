@@ -5,6 +5,10 @@ from flask_login import login_required,current_user
 from ..models import User,Comment,Blog,Subscriber
 from .forms import BlogForm,CommentForm,UpdateProfile
 from .. import db
+import markdown2
+
+
+
 @main.route('/')
 def index():
 

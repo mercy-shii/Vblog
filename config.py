@@ -1,18 +1,27 @@
+import os
 class Config:
+    
     SECRET_KEY =('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mercy:shii@localhost/blog'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("wmercy@gmail.com")
     MAIL_PASSWORD = os.environ.get("evansnjufi")
+    SUBJECT_PREFIX = 'New Blog'
 class ProdConfig(Config):
-    pass
+
+     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+
+
 
 class TestConfig(Config):
-    pass
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mercy:shii@localhost/blog_test'
+    
 
 class DevConfig(Config):
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mercy:shii@localhost/blog'
     DEBUG = True
     
 
