@@ -1,10 +1,10 @@
 from . import main
-from flask import render_template,request,url_for,abort
+from flask import render_template,request,url_for,redirect,abort
 from .. request import get_quote
 from flask_login import login_required,current_user
 from ..models import User,Comment,Blog,Subscriber
 from .forms import BlogForm,CommentForm,UpdateProfile
-
+from .. import db
 @main.route('/')
 def index():
 
@@ -13,10 +13,10 @@ def index():
     
     return render_template('index.html', title=title,quote = quote)
 
-@main.route('/user/<unname>')
+@main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    blogs = Blog.query.filter_by(user_id = user.id).order_by(Blog.posted.desc())
+    blogs = Blog.query.filter_by(user_id = user.id).order_by(Blog.date_posted.desc())
 
     if user is None:
         abort(404)
@@ -27,7 +27,7 @@ def profile(uname):
 @login_required
 def del_blog(uname,blog_id):
     user = User.query.filter_by(username = uname).first()
-    blogs = Blog.query.filter_by(user_id = user.id).order_by(Blog.posted.desc())
+    blogs = Blog.query.filter_by(user_id = user.id).order_by(Blog.date_posted.desc())
     blog = Blog.query.filter_by(id = blog_id).first()
 
     if blog.user_id == current_user.id:
@@ -70,10 +70,10 @@ def new_blog(uname):
         blog.user_id = current_user.id
 
         db.session.add(blog)
-        db.sessioncommit()
+        db.session.commit()
 
-        Subscribers = Subscriber.query.all()
-        mail_message("New Blog Post", "email/new_blog", subscriber.email, subscriber = subscriber)
+        #Subscribers = Subscriber.query.all()
+       # mail_message("New Blog Post", "email/new_blog", subscriber.email, subscriber = subscriber)
 
         return redirect(url_for('.profile',uname=user.username))
 
@@ -83,7 +83,7 @@ def new_blog(uname):
 @login_required
 def comments(blog_id):
     blog = Blog.query.filter_by(id = blog_id).first()
-    comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.posted.desc())
+    comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.date_posted.desc())
 
 
     return render_template('comments.html', blog = blog, comments = comments)
@@ -92,7 +92,7 @@ def comments(blog_id):
 @login_required
 def del_comment(blog_id, comment_id):
     blog = Blog.query.filter_by(id = blog_id).first()
-    comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.posted.desc())
+    comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.date_posted.desc())
     comment = Comment.query.filter_by(id = comment_id).first()
     if blog.user_id == current_user.id or comment.user_id == current_user.id:
 

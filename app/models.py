@@ -57,11 +57,6 @@ class Blog(db.Model):
     comments = db.relationship("Comment",backref = "blog",lazy = "dynamic")
 
 
-    def save_blog(self):
-        db.session.add(self)
-        db.session.commit()
-
-
     def delete_blog(self):
         db.session.delete(self)
         db.session.commit()

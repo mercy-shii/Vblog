@@ -13,7 +13,7 @@
                     <ul class="nav navbar-nav navbar-left">
                             <li><a class="navbar-brand" href="/" style="font-size: 20px;">SHII'S BLOG </a></li>
                             {% if current_user.is_authenticated %}
-                            <li style="color: lightcyan;padding: 15px;">{{current_user.username}}</li>
+                            <li><a  href="{{url_for('main.profile',uname=current_user.username)}}">{{current_user.username}}</a></li>
                              <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
                              {% else %}
                              <li style="position: 200px;"><a href="{{url_for('auth.login')}}">Sign in</a></li>
