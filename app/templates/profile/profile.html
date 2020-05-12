@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container" id="fun">
+<div class="container" id="fun" style="background-color: thistle;">
     <div class="row">
         <!-- displaying  Username-->
         <div class="col-md-4 marg2">
@@ -21,7 +21,7 @@
 
             {% if user == current_user %}
             <a href="{{url_for('main.update_profile',uname=user.username)}}"> <button type="button" name="button"
-                    class="btn btn-warning"> Edit User Profile </button></a></a>
+                    class="btn btn-success"> Edit User Profile </button></a></a>
             {% endif %}
         </div>
         <br>
@@ -38,7 +38,7 @@
         <br>
         <div class="col-md-3 marg">
             <a href="{{url_for('main.new_blog',uname=user.username)}}"> <button type="button" name="button"
-                    class="btn btn-warning"> Add a New Blog</button></a>
+                    class="btn btn-primary"> Add a New Blog</button></a>
         </div>
     </div>
     <h3 class="text-center">Blogs</h3>
@@ -56,7 +56,7 @@
                 <p>"{{blog.message}}"</p>
                 <br>
                 <a href="{{url_for('main.del_blog',uname=user.username, blog_id = blog.id)}}"><button type="button"
-                        name="button" class="btn btn-warning">Delete Blog </button></a>
+                        name="button" class="btn btn-success">Delete Blog </button></a>
             </div>
         </div>
         {% endfor %}
