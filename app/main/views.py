@@ -72,7 +72,7 @@ def new_blog(uname):
         db.session.add(blog)
         db.session.commit()
 
-        #Subscribers = Subscriber.query.all()
+        Subscribers = Subscriber.query.all()
        # mail_message("New Blog Post", "email/new_blog", subscriber.email, subscriber = subscriber)
 
         return redirect(url_for('.profile',uname=user.username))
