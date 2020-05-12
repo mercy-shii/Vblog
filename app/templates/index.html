@@ -14,13 +14,13 @@
     <div class="main">
     <div class="container">
       <div class="col-md-12">
-        <div class="card" style="background-color: transparent; ">
+        <div class="card" style="background-color: transparent;">
         <div class="card-header" style="background-color: navajowhite">
           Quote
         </div>
-        <div class="card-body">
+        <div class="card-body" style="color: oldlace;">
           <blockquote class="blockquote mb-0">
-            <p id="quote">{{quote.quote}}</p>
+            <p id="quote" style="color: oldlace;">{{quote.quote}}</p>
             <footer class="blockquote-footer"><cite title="Source Title">{{quote.author}}</cite></footer>
           </blockquote>
         </div><br>
@@ -33,10 +33,10 @@
                         <div class="card-header " style="background-color: cadetblue;">
                         {{blog.title}}
                         </div>
-                        <div class="card-body">
-                        <p class="card-text">"{{blog.message}}"</p>
+                        <div class="card-body" style="text-decoration-color: oldlace;">
+                        <p class="card-text" style="color: oldlace;">{{blog.message}}</p>
                         <hr>
-                        <p class="card-text"> by: {{blog.user.username}}</p>
+                        <p class="card-text" style="color: oldlace;" > by: {{blog.user.username}}</p>
                         {% if current_user.is_authenticated %}
                           <a class="comment" href="{{url_for('main.comments',blog_id = blog.id)}}"> <button type="button" name="button" class="btn btn-success">comment</button> </a>
                         {% endif %}
