@@ -1,9 +1,10 @@
 table,
 th,
 td {
-    border: 1px solid black;
+    border: 1px solid beige;
     border-collapse: collapse;
     padding: 1.5%;
+    background-color: transparent;
 }
 
 table {
@@ -36,12 +37,6 @@ h3 {
     font-size: large;
     font-family: 'Playfair Display', cursive;
 }
-
-/* .navbar-brand{
-    font-size: x-large;
-    font-family: 'Abril Fatface', cursive;
-  }
-   */
 
 #shown_comments {
     background-color: rgba(0, 0, 0, 0.2);
