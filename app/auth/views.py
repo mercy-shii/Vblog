@@ -28,10 +28,10 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        # if form.subscribe.data:
-        #     subscriber = Subscriber(email = form.email.data, username = form.username.data)
-        #     db.session.add(subscriber)
-        #     db.session.commit()
+        if form.subscribe.data:
+             subscriber = Subscriber(email = form.email.data, username = form.username.data)
+             db.session.add(subscriber)
+             db.session.commit()
 
         return redirect(url_for('auth.login'))
         title = "New Account"
