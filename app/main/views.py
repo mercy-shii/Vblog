@@ -10,8 +10,9 @@ def index():
 
     title = 'Developer Blog'
     quote = get_quote()
+    blogs = Blog.query.all()
     
-    return render_template('index.html', title=title,quote = quote)
+    return render_template('index.html', title=title,quote = quote,blogs = blogs)
 
 @main.route('/user/<uname>')
 def profile(uname):
