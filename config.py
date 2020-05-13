@@ -1,9 +1,8 @@
 import os
+
 class Config:
     
     SECRET_KEY =('SECRET_KEY')
-
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mercy:shii@localhost/blogs'
 
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
@@ -15,7 +14,7 @@ class Config:
     
 class ProdConfig(Config):
 
-       SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
 
