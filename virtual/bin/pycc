@@ -1,3 +1,0 @@
-#!/home/mercy/Documents/Blog/virtual/bin/python
-from numba.pycc import main
-main()
